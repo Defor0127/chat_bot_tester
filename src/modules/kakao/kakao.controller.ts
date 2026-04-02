@@ -3,22 +3,28 @@ import { Controller, Post, Body, HttpCode } from '@nestjs/common';
 @Controller('kakao')
 export class KakaoController {
   @Post('test')
-  @HttpCode(200) // 카카오는 200 상태 코드를 기대합니다.
+  @HttpCode(200)
   testResponse(@Body() body: any) {
-    // 1. 카카오로부터 들어오는 요청 데이터 확인 (콘솔 로그)
-    console.log('Received from Kakao:', JSON.stringify(body, null, 2));
+    // 1. 데이터 추출
+    const utterance = body.userRequest?.utterance; // 메시지 내용
+    const userId = body.userRequest?.user?.id;    // 사용자 고유 ID (카카오 제공 식별값)
+    const serverTime = new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }); // 한국 시간 기준 작성 시간
 
-    // 2. 사용자가 입력한 메시지 추출
-    const userMessage = body.userRequest?.utterance || '메시지가 없습니다';
+    // 2. 서버 로그에 출력 (데이터 확인용)
+    console.log('--- 데이터 추출 결과 ---');
+    console.log(`사용자 ID: ${userId}`);
+    console.log(`메시지: ${utterance}`);
+    console.log(`시간: ${serverTime}`);
+    console.log('-----------------------');
 
-    // 3. 카카오 i 오픈빌더 규격에 맞춘 응답 객체
+    // 3. 사용자에게 보여줄 응답
     return {
       version: "2.0",
       template: {
         outputs: [
           {
             simpleText: {
-              text: `테스트 성공! 보낸 메시지: ${userMessage}`
+              text: `데이터가 확인되었습니다.\n내용: ${utterance}\nID: ${userId}\n시간: ${serverTime}`
             }
           }
         ]
