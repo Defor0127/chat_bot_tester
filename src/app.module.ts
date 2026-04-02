@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CollectModule } from './modules/collect/collect.module';
+import { KakaoModule } from './modules/kakao/kakao.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { CollectModule } from './modules/collect/collect.module';
       }),
     }),
     CollectModule,
+    KakaoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
