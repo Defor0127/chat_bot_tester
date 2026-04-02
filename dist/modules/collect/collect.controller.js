@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CollectController = void 0;
 const common_1 = require("@nestjs/common");
 const collect_service_1 = require("./collect.service");
+const create_collect_dto_1 = require("./dto/create-collect.dto");
 let CollectController = class CollectController {
     collectService;
     constructor(collectService) {
@@ -23,6 +24,10 @@ let CollectController = class CollectController {
     async collectMessage(payload) {
         console.log('collectMessage');
         return this.collectService.saveKakaoMessage(payload);
+    }
+    async saveMessage(payload) {
+        console.log('collectMessage');
+        return this.collectService.saveMessage(payload);
     }
 };
 exports.CollectController = CollectController;
@@ -34,6 +39,14 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CollectController.prototype, "collectMessage", null);
+__decorate([
+    (0, common_1.Post)(),
+    (0, common_1.HttpCode)(200),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_collect_dto_1.CreateCollectDto]),
+    __metadata("design:returntype", Promise)
+], CollectController.prototype, "saveMessage", null);
 exports.CollectController = CollectController = __decorate([
     (0, common_1.Controller)('collect'),
     __metadata("design:paramtypes", [collect_service_1.CollectService])

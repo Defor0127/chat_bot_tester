@@ -1,26 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { CreateKakaoDto } from './dto/create-kakao.dto';
-import { UpdateKakaoDto } from './dto/update-kakao.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Message } from './entities/message.entity';
 
 @Injectable()
 export class KakaoService {
-  create(createKakaoDto: CreateKakaoDto) {
-    return 'This action adds a new kakao';
-  }
+  constructor(
+    @InjectRepository(Message)
+    private readonly messageRepository: Repository<Message>,
+  ) {}
 
-  findAll() {
-    return `This action returns all kakao`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} kakao`;
-  }
-
-  update(id: number, updateKakaoDto: UpdateKakaoDto) {
-    return `This action updates a #${id} kakao`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} kakao`;
+  async saveUtterance(userId: string, content: string) {
+    const newMessage = this.messageRepository.create({
+      kakaoUserId: userId,
+      content: content,
+    });
+    return await this.messageRepository.save(newMessage);
   }
 }

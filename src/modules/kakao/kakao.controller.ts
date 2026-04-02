@@ -1,10 +1,13 @@
 import { Controller, Post, Body, HttpCode } from '@nestjs/common';
+import { KakaoService } from './kakao.service';
 
 @Controller('kakao')
 export class KakaoController {
+  constructor(private readonly kakaoService: KakaoService) {}
+
   @Post('test')
   @HttpCode(200)
-  testResponse(@Body() body: any) {
+  async testResponse(@Body() body: any) {
     // 1. 데이터 추출
     const utterance = body.userRequest?.utterance; // 메시지 내용
     const userId = body.userRequest?.user?.id;    // 사용자 고유 ID (카카오 제공 식별값)
@@ -16,6 +19,10 @@ export class KakaoController {
     console.log(`메시지: ${utterance}`);
     console.log(`시간: ${serverTime}`);
     console.log('-----------------------');
+    if (userId && utterance) {
+      await this.kakaoService.saveUtterance(userId, utterance);
+      console.log(`[수집 완료] ID: ${userId}, 내용: ${utterance}`);
+    }
 
     // 3. 사용자에게 보여줄 응답
     return {
