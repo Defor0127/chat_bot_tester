@@ -10,8 +10,9 @@ export class CollectController {
   @Get('')
   @HttpCode(200)
   async collectMessage(
+    @Body() payload: any,
   ) {
     console.log('collectMessage');
-    return this.collectService.collectMessage();
+    return this.collectService.saveKakaoMessage(payload);
   }
 }

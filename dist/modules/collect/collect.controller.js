@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CollectController = void 0;
 const common_1 = require("@nestjs/common");
@@ -17,17 +20,18 @@ let CollectController = class CollectController {
     constructor(collectService) {
         this.collectService = collectService;
     }
-    async collectMessage() {
+    async collectMessage(payload) {
         console.log('collectMessage');
-        return this.collectService.collectMessage();
+        return this.collectService.saveKakaoMessage(payload);
     }
 };
 exports.CollectController = CollectController;
 __decorate([
     (0, common_1.Get)(''),
     (0, common_1.HttpCode)(200),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CollectController.prototype, "collectMessage", null);
 exports.CollectController = CollectController = __decorate([

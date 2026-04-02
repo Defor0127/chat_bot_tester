@@ -10,11 +10,14 @@ exports.CollectModule = void 0;
 const common_1 = require("@nestjs/common");
 const collect_service_1 = require("./collect.service");
 const collect_controller_1 = require("./collect.controller");
+const typeorm_1 = require("@nestjs/typeorm");
+const collect_entity_1 = require("./entities/collect.entity");
 let CollectModule = class CollectModule {
 };
 exports.CollectModule = CollectModule;
 exports.CollectModule = CollectModule = __decorate([
     (0, common_1.Module)({
+        imports: [typeorm_1.TypeOrmModule.forFeature([collect_entity_1.Collect])],
         controllers: [collect_controller_1.CollectController],
         providers: [collect_service_1.CollectService],
     })

@@ -2,10 +2,5 @@ import { CollectService } from './collect.service';
 export declare class CollectController {
     private readonly collectService;
     constructor(collectService: CollectService);
-    collectMessage(): Promise<{
-        version: string;
-        template: {
-            outputs: never[];
-        };
-    }>;
+    collectMessage(payload: any): Promise<import("./entities/collect.entity").Collect | null>;
 }
