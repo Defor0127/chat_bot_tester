@@ -31,7 +31,7 @@ export class KakaoController {
         outputs: [
           {
             simpleText: {
-              text: `데이터가 확인되었습니다.\n내용: ${utterance}\nID: ${userId}\n시간: ${serverTime}`
+              text: ``
             }
           }
         ]
